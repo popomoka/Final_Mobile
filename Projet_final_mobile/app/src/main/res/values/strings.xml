@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Projet_final_mobile</string>
+    <string name="connexion">Connexion</string>
+    <string name="email">Email</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="se_connecter">Se connecter</string>
+    <string name="options">Options</string>
+    <string name="deconnexion">Déconnexion</string>
+    <string name="amelioration">Amélioration</string>
+    <string name="jouer_une_partie">Jouer une partie</string>
+    <string name="nom_du_jeu">Nom du jeu</string>
+</resources>
