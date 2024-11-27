@@ -9,4 +9,7 @@
     <string name="amelioration">Amélioration</string>
     <string name="jouer_une_partie">Jouer une partie</string>
     <string name="nom_du_jeu">Nom du jeu</string>
+    <string name="start">Commencer</string>
+    <string name="Bestiaire">Bestiaire</string>
+
 </resources>

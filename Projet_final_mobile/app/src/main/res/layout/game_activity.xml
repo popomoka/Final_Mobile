@@ -14,6 +14,7 @@
         <!--   **************  top bar  ***************   -->
         <!--   ************************************   -->
             <TextView
+                android:id="@+id/topbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/nom_du_jeu"
@@ -23,6 +24,8 @@
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:layout_margin="3dp"/>
+
+
 
 
         <!--   ************************************   -->
@@ -61,6 +64,7 @@
                     android:columnCount="3">
 
                 <ImageView
+                    android:id="@+id/ImageMonstre"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:src="@drawable/blue_blob"
@@ -96,6 +100,11 @@
         </LinearLayout>
 
 
+
+
+
+
+
         <!--   ************************************   -->
         <!--   **************  stats  ***************   -->
         <!--   ************************************   -->
@@ -110,6 +119,7 @@
             android:orientation="vertical"
             android:layout_marginTop="10dp">
             <TextView
+                android:id="@+id/text_pv_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Point de vie : 30"
@@ -119,18 +129,20 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="5dp"/>
             <TextView
+                android:id="@+id/text_dammage_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Point de vie : 30"
+                android:text="dammage : 30"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:textColor="@color/white"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="5dp"/>
             <TextView
+                android:id="@+id/text_armor_stats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Point de vie : 30"
+                android:text="armure : 30"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:textColor="@color/white"
@@ -144,34 +156,127 @@
         android:layout_marginTop="10dp">
 
         <TextView
+            android:id="@+id/text_crit_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Point de vie : 30"
+            android:text="chance de coup critique : 30"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/white"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="5dp"/>
         <TextView
+            android:id="@+id/text_dodge_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Point de vie : 30"
+            android:text="Chance d'esquive : 30"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/white"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Point de vie : 30"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"/>
+
     </LinearLayout>
 </LinearLayout>
+
+
+
+
+
+
+
+
+
+        <!--   ************************************   -->
+        <!--   ********  Choix recompenses  *******   -->
+        <!--   ************************************   -->
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ChoixRecompenses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="119dp"
+                        android:layout_height="119dp"
+                        android:src="@drawable/border_item"/>
+
+                    <ImageView
+                        android:layout_width="119dp"
+                        android:layout_height="119dp"
+                        android:src="@drawable/border_item"/>
+
+                    <ImageView
+                        android:layout_width="119dp"
+                        android:layout_height="119dp"
+                        android:src="@drawable/border_item"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/Item1"
+                        android:layout_width="119dp"
+                        android:layout_height="119dp"
+                        android:padding="20dp"
+                        android:src="@drawable/casque_1"/>
+
+                    <ImageView
+                        android:id="@+id/Item2"
+                        android:layout_width="119dp"
+                        android:layout_height="119dp"
+                        android:padding="20dp"
+                        android:src="@drawable/jamb_7"/>
+
+                    <ImageView
+                        android:id="@+id/Item3"
+                        android:layout_width="119dp"
+                        android:layout_height="119dp"
+                        android:padding="20dp"
+                        android:src="@drawable/plastron_6"/>
+                </LinearLayout>
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/TextItem1"
+                    android:layout_width="119dp"
+                    android:layout_height="match_parent"
+                    android:text="testing"
+                    android:textColor="@color/white"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/TextItem2"
+                    android:layout_width="119dp"
+                    android:layout_height="match_parent"
+                    android:text="testing"
+                    android:textColor="@color/white"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/TextItem3"
+                    android:layout_width="119dp"
+                    android:layout_height="match_parent"
+                    android:text="testing"
+                    android:textColor="@color/white"
+                    android:gravity="center"/>
+            </LinearLayout>
+    </LinearLayout>
 
 
 
@@ -180,27 +285,35 @@
         <!--   ************************************   -->
         <!--   **************  options  ***************   -->
         <!--   ************************************   -->
+        <Button
+            android:id="@+id/ButtonStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start"
+            android:textSize="25sp"/>
+
         <LinearLayout
+            android:id="@+id/OptionsBoissons"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp">
             <Button
                 android:layout_width="130dp"
-                android:layout_height="50dp"
+                android:layout_height="70dp"
                 android:background="@drawable/buttonstyle"
-                android:text="test"
+                android:text="+3 PV           (1 Gorgée)"
                 android:layout_marginRight="10dp"/>
             <Button
                 android:layout_width="130dp"
-                android:layout_height="50dp"
+                android:layout_height="70dp"
                 android:background="@drawable/buttonstyle"
-                android:text="test"
+                android:text="+10 PV         (2 Gorgées)"
                 android:layout_marginRight="10dp"/>
             <Button
                 android:layout_width="130dp"
-                android:layout_height="50dp"
+                android:layout_height="70dp"
                 android:background="@drawable/buttonstyle"
-                android:text="test"/>
+                android:text="+1% Crit      (4 Gorgées)"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
