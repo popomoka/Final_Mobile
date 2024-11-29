@@ -92,12 +92,106 @@
             <!--   ************************************   -->
             <!--   **************  display  ***************   -->
             <!--   ************************************   -->
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="280dp"
             android:background="@drawable/planche">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp"
+                android:paddingTop="15dp"
+                android:gravity="start">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/empty_helmet"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/empty_pants"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/empty_weapon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/casqueText"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:paddingTop="10dp"
+                        android:text="test"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/jambiereText"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:paddingTop="10dp"
+                        android:text="test"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/arme1Text"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:paddingTop="10dp"
+                        android:text="test"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/empty_plastron"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/empty_bottes"/>
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/empty_weapon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/plastronText"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:paddingTop="10dp"
+                        android:text="test"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/bottesText"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:paddingTop="10dp"
+                        android:text="test"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/arme2Text"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:paddingTop="10dp"
+                        android:text="test"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
 
-        </LinearLayout>
 
 
 
