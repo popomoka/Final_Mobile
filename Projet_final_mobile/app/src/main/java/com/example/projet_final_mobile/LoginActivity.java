@@ -2,6 +2,7 @@ package com.example.projet_final_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,14 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         Button loginButton = findViewById(R.id.loginButton);
+
+        new Thread(() -> {
+             User test = API_model.Login("Math","Math6077");
+             Log.d("user",test.username);
+            runOnUiThread(() -> {
+                // Mettre à jour l'interface utilisateur avec la réponse si nécessaire
+            });
+        }).start();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
