@@ -1,5 +1,6 @@
 package com.example.projet_final_mobile;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
@@ -27,9 +28,11 @@ public class Game extends AppCompatActivity {
     Monster[] listeMonstre = new Monster[40];
     Handler handler = new Handler(Looper.getMainLooper());
     Item[] ItemSelection = new Item[3];
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        User user = (User)getIntent().getSerializableExtra("USER");
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.game_activity);
@@ -429,16 +432,24 @@ public class Game extends AppCompatActivity {
         listeItems[2] = item3;
         //...
 
-        Monster monstre1 = new Monster(0,2,0,7,15,30,"blue_blob");
-        Monster monstre2 = new Monster(0,1,1,5,20,20,"blue_cube");
-        Monster monstre3 = new Monster(1,3,0,7,40,15,"blue_eggman");
-        //...
+        /*new Thread(() -> {
+            User user = API_model.Login(emailEditText.getText().toString(),passwordEditText.getText().toString());
+            if(user != null)
+            {
+                runOnUiThread(() -> {
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.putExtra("USER", user);
+                    startActivity(intent);
+                });
+            }
+        }).start();
+
 
         listeMonstre[0] = monstre1;
         listeMonstre[1] = monstre2;
         listeMonstre[2] = monstre3;
         //...
-
+        */
 
         //+ upgrades
         perso = new Perso(0 , 1, 0, 20, 0, 0, null, null, null, null, null);
@@ -448,11 +459,14 @@ public class Game extends AppCompatActivity {
 
     void GAMEOVER()
     {
+        Intent intent = new Intent(Game.this, HomeActivity.class);
+        intent.putExtra("USERNAME", "pops" );
+        startActivity(intent);
+
+
         //give recompense
         //load en bd
         //changeScene
-
-
     }
 
     void HideButtonBoissons()

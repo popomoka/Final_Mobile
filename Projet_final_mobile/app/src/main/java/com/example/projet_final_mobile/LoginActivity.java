@@ -22,13 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         Button loginButton = findViewById(R.id.loginButton);
 
-        new Thread(() -> {
-             User test = API_model.Login("Math","Math6077");
-             Log.d("user",test.username);
-            runOnUiThread(() -> {
-                // Mettre à jour l'interface utilisateur avec la réponse si nécessaire
-            });
-        }).start();
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,10 +34,20 @@ public class LoginActivity extends AppCompatActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.putExtra("USERNAME", "pops" );
-                    startActivity(intent);
+                    new Thread(() -> {
+                        User user = API_model.Login(emailEditText.getText().toString(),passwordEditText.getText().toString());
+                        if(user != null)
+                        {
+                            runOnUiThread(() -> {
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                intent.putExtra("USER", user);
+                                startActivity(intent);
+                            });
+                        }
+                    }).start();
                 }
+
+
             }
         });
     }
