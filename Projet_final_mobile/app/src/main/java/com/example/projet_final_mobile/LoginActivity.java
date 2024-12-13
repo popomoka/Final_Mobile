@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
         new Thread(() -> {
              User test = API_model.Login("Math","Math6077");
-             Log.d("user",test.username);
+             Log.d("testapi",test.username);
             runOnUiThread(() -> {
                 // Mettre à jour l'interface utilisateur avec la réponse si nécessaire
             });
