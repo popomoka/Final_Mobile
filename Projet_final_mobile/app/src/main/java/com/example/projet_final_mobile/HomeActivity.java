@@ -2,6 +2,7 @@ package com.example.projet_final_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,6 +36,17 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, Game.class);
                 intent.putExtra("USER", user);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonBestiaire= (Button)findViewById(R.id.BestiaireButton);
+        buttonBestiaire.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Log.d("Test","test");
+                Intent intent = new Intent(HomeActivity.this, Monstre_Bestiaire.class);
+
                 startActivity(intent);
             }
         });
