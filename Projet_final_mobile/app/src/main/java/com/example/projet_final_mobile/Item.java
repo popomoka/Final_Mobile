@@ -8,8 +8,9 @@ public class Item {
     public int dodgeChance;
     public int critChance;
     public String image;
+    public String type;
 
-    public Item(int dammage_min_p,int dammage_max_p, int armor_p,  int pv_p,  int dodgechance_p,  int critchance_p,String image_p)
+    public Item(int dammage_min_p,int dammage_max_p, int armor_p,  int pv_p,  int dodgechance_p,  int critchance_p,String image_p,String type_p)
     {
         dammage_min = dammage_min_p;
         dammage_max = dammage_max_p;
@@ -18,5 +19,6 @@ public class Item {
         dodgeChance = dodgechance_p;
         critChance = critchance_p;
         image = image_p;
+        type = type_p;
     }
 }
