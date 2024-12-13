@@ -22,7 +22,17 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         Button loginButton = findViewById(R.id.loginButton);
 
+<<<<<<< HEAD
 
+=======
+        new Thread(() -> {
+             User test = API_model.Login("Math","Math6077");
+             Log.d("testapi",test.username);
+            runOnUiThread(() -> {
+                // Mettre à jour l'interface utilisateur avec la réponse si nécessaire
+            });
+        }).start();
+>>>>>>> b71a466679d0140ced234e18c92c25e84515fde9
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

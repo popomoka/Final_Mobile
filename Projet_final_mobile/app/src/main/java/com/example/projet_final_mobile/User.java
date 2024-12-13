@@ -1,6 +1,7 @@
 package com.example.projet_final_mobile;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     String username;
     String email;
     String password;

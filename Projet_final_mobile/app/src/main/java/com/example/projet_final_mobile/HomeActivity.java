@@ -16,12 +16,12 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.home_activity);
 
-        String username = getIntent().getStringExtra("USERNAME");
+        User user = (User)getIntent().getSerializableExtra("USER");
 
-        if(username != null)
+        if(user != null)
         {
             TextView usernameTextView = findViewById(R.id.welcomeText);
-            usernameTextView.setText("Bonjour, " + username);
+            usernameTextView.setText("Bonjour, " + user.username);
         }
         else
         {
@@ -34,6 +34,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, Game.class);
+                intent.putExtra("USER", user);
                 startActivity(intent);
             }
         });
