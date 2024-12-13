@@ -2,7 +2,8 @@ package com.example.projet_final_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.util.Log;
+import com.example.projet_final_mobile.API_Caller;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
