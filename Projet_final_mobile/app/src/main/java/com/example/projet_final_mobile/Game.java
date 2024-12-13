@@ -1,5 +1,6 @@
 package com.example.projet_final_mobile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -8,24 +9,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Handler;
 import java.util.Random;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.w3c.dom.Text;
 
 public class Game extends AppCompatActivity {
 
     public Perso perso;
     public Monster monstre;
     boolean combatIsOver;
+    String vitesse;
     Item[] listeItems = new Item[40];
     Monster[] listeMonstre = new Monster[40];
     Handler handler = new Handler(Looper.getMainLooper());
+    Item[] ItemSelection = new Item[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.game_activity);
+        vitesse = "normal";
         StartGame();
 
         Button button = (Button)findViewById(R.id.ButtonStart);
@@ -41,19 +49,235 @@ public class Game extends AppCompatActivity {
                 handler.post(Combat);
             }
         });
+
+        Button buttonquit = (Button)findViewById(R.id.Quitter);
+        buttonquit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //quit
+            }
+        });
+
+        Button buttonvitesse = (Button)findViewById(R.id.vitesse);
+        buttonvitesse.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(buttonvitesse.getText()=="Vitesse : normal")
+                {
+                    vitesse = "rapide";
+                    buttonvitesse.setText("Vitesse : rapide");
+                }
+                else
+                {
+                    vitesse = "normal";
+                    buttonvitesse.setText("Vitesse : normal");
+                }
+            }
+        });
+
+        Button buttonsmallpv = (Button)findViewById(R.id.smallpvButton);
+        buttonsmallpv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                perso.pv_actuel += 3;
+                UpdateStats();
+                HideButtonBoissons();
+            }
+        });
+
+        Button buttonBigPv = (Button)findViewById(R.id.bigpvButton);
+        buttonBigPv.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                perso.pv_actuel += 10;
+                UpdateStats();
+                HideButtonBoissons();
+            }
+        });
+
+
+        Button buttoncrit = (Button)findViewById(R.id.critButton);
+        buttoncrit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                perso.critChance += 1;
+                UpdateStats();
+                HideButtonBoissons();
+            }
+        });
+
+        ImageView ImageViewItem1 = findViewById(R.id.Item1);
+        ImageViewItem1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView view;
+                TextView textview;
+                if(ItemSelection[0].type == "Casque")
+                {
+                    perso.casque = ItemSelection[0];
+                    textview = findViewById((R.id.casqueText));
+                    view = findViewById(R.id.casqueImage);
+                }
+                else if(ItemSelection[0].type == "Plastron")
+                {
+                    perso.plastron = ItemSelection[0];
+                    textview = findViewById((R.id.plastronText));
+                    view = findViewById(R.id.plastronImage);
+                }
+                else if(ItemSelection[0].type == "Jambière")
+                {
+                    perso.jambiere = ItemSelection[0];
+                    textview = findViewById((R.id.jambiereText));
+                    view = findViewById(R.id.jambiereImage);
+                }
+                else if(ItemSelection[0].type == "Bottes")
+                {
+                    perso.bottes = ItemSelection[0];
+                    textview = findViewById((R.id.bottesText));
+                    view = findViewById(R.id.bottesImage);
+                }
+                else
+                {
+                    perso.arme = ItemSelection[0];
+                    textview = findViewById((R.id.armeText));
+                    view = findViewById(R.id.armeImage);
+                }
+                textview.setText(GetItemTextStat(ItemSelection[0]));
+                view.setImageResource(ConversionStringEnDrawableImage(ItemSelection[0].image));
+                buttonClickedRecompense();
+            }
+        });
+
+        ImageView ImageViewItem2 = findViewById(R.id.Item2);
+        ImageViewItem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView view;
+                TextView textview;
+                if(ItemSelection[1].type == "Casque")
+                {
+                    perso.casque = ItemSelection[1];
+                    textview = findViewById((R.id.casqueText));
+                    view = findViewById(R.id.casqueImage);
+                }
+                else if(ItemSelection[1].type == "Plastron")
+                {
+                    perso.plastron = ItemSelection[1];
+                    textview = findViewById((R.id.plastronText));
+                    view = findViewById(R.id.plastronImage);
+                }
+                else if(ItemSelection[1].type == "Jambière")
+                {
+                    perso.jambiere = ItemSelection[1];
+                    textview = findViewById((R.id.jambiereText));
+                    view = findViewById(R.id.jambiereImage);
+                }
+                else if(ItemSelection[1].type == "Bottes")
+                {
+                    perso.bottes = ItemSelection[1];
+                    textview = findViewById((R.id.bottesText));
+                    view = findViewById(R.id.bottesImage);
+                }
+                else
+                {
+                    perso.arme = ItemSelection[1];
+                    textview = findViewById((R.id.armeText));
+                    view = findViewById(R.id.armeImage);
+                }
+                textview.setText(GetItemTextStat(ItemSelection[1]));
+                view.setImageResource(ConversionStringEnDrawableImage(ItemSelection[1].image));
+                buttonClickedRecompense();
+            }
+        });
+
+        ImageView ImageViewItem3 = findViewById(R.id.Item3);
+        ImageViewItem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView view;
+                TextView textview;
+                if(ItemSelection[2].type == "Casque")
+                {
+                    perso.casque = ItemSelection[2];
+                    textview = findViewById((R.id.casqueText));
+                    view = findViewById(R.id.casqueImage);
+                }
+                else if(ItemSelection[2].type == "Plastron")
+                {
+                    perso.plastron = ItemSelection[2];
+                    textview = findViewById((R.id.plastronText));
+                    view = findViewById(R.id.plastronImage);
+                }
+                else if(ItemSelection[2].type == "Jambière")
+                {
+                    perso.jambiere = ItemSelection[2];
+                    textview = findViewById((R.id.jambiereText));
+                    view = findViewById(R.id.jambiereImage);
+                }
+                else if(ItemSelection[2].type == "Bottes")
+                {
+                    perso.bottes = ItemSelection[2];
+                    textview = findViewById((R.id.bottesText));
+                    view = findViewById(R.id.bottesImage);
+                }
+                else
+                {
+                    perso.arme = ItemSelection[2];
+                    textview = findViewById((R.id.armeText));
+                    view = findViewById(R.id.armeImage);
+                }
+
+                textview.setText(GetItemTextStat(ItemSelection[2]));
+                view.setImageResource(ConversionStringEnDrawableImage(ItemSelection[2].image));
+                buttonClickedRecompense();
+            }
+        });
     }
 
     Runnable Combat = new Runnable() {
+
+
+
         int montour = 1;
         @Override
         public void run() {
+            hideHit();
+            Random rand = new Random();
+            int dodge = rand.nextInt(101);
+            int crit = rand.nextInt(101);
             switch(montour)
             {
                 case 1:
-                    GiveDammage(1);
+                    TextView dammageText = findViewById(R.id.monstrehit);
+                    if(dodge>=monstre.dodgechance) {
+                        if(crit>=perso.critChance){
+                            dammageText.setTextColor(Color.parseColor("#FF0000"));
+                            GiveDammage(rand.nextInt((perso.dammage_max - perso.dammage_min) + 1) + perso.dammage_min);
+                        } else{
+                            dammageText.setTextColor(Color.parseColor("#FFFF00"));
+                            GiveDammage(2*(rand.nextInt((perso.dammage_max - perso.dammage_min) + 1) + perso.dammage_min));
+                        }
+                    }
+                    else{
+                        dammageText.setTextColor(Color.parseColor("#FF0000"));
+                        GiveDodge();
+                    }
                     break;
                 case 0:
-                    TakeDammage(1);
+                    TextView dammagepersoText = findViewById(R.id.persohit);
+                    if(dodge>=perso.dodgeChance) {
+                        if(crit>=monstre.critchance){
+                            dammagepersoText.setTextColor(Color.parseColor("#FF0000"));
+                            TakeDammage(rand.nextInt((monstre.dammage_max - monstre.dammage_min) + 1) + monstre.dammage_min);
+                        } else{
+                            dammagepersoText.setTextColor(Color.parseColor("#FFFF00"));
+                            TakeDammage(2*(rand.nextInt((monstre.dammage_max - monstre.dammage_min) + 1) + monstre.dammage_min));
+                        }
+                    }
+                    else{
+                        dammagepersoText.setTextColor(Color.parseColor("#FF0000"));
+                        TakeDodge();
+                    }
                     break;
             }
 
@@ -67,7 +291,11 @@ public class Game extends AppCompatActivity {
 
             if(!combatIsOver)
             {
-                handler.postDelayed(Combat, 1000);
+                if(vitesse=="normal"){
+                    handler.postDelayed(Combat, 1200);
+                }else{
+                    handler.postDelayed(Combat, 600);
+                }
             }
             else
             {
@@ -83,31 +311,52 @@ public class Game extends AppCompatActivity {
         View OptionsBoissons = findViewById(R.id.OptionsBoissons);
         OptionsBoissons.setVisibility(View.VISIBLE);
         buttonStart.setVisibility(View.VISIBLE);
-
     }
 
     void TakeDammage(int ammount)
     {
+        TextView view = findViewById(R.id.persohit);
+        view.setText("-" + ammount);
+        view.setVisibility(View.VISIBLE);
+
         perso.pv_actuel -= ammount;
 
         if (perso.pv_actuel <=0)
         {
             combatIsOver = true;
+            GAMEOVER();
         }
 
         UpdatePv();
     }
 
+    void TakeDodge(){
+        TextView view = findViewById(R.id.persohit);
+        view.setText("DODGE");
+        view.setVisibility(View.VISIBLE);
+    }
+
     void GiveDammage(int ammount)
     {
+        TextView view = findViewById(R.id.monstrehit);
+        view.setText("-" + ammount);
+        view.setVisibility(View.VISIBLE);
+
         monstre.pv_actuel -= ammount;
 
         if (monstre.pv_actuel <=0)
         {
             combatIsOver = true;
+            hideHit();
         }
 
         UpdatePv();
+    }
+
+    void GiveDodge(){
+        TextView view = findViewById(R.id.monstrehit);
+        view.setText("DODGE");
+        view.setVisibility(View.VISIBLE);
     }
 
     void endround()
@@ -119,6 +368,10 @@ public class Game extends AppCompatActivity {
         Item item1 = listeItems[0];
         Item item2 = listeItems[1];
         Item item3 = listeItems[2];
+
+        ItemSelection[0] = item1;
+        ItemSelection[1] = item2;
+        ItemSelection[2] = item3;
 
         ImageView item1Image = findViewById(R.id.Item1);
         ImageView item2Image = findViewById(R.id.Item2);
@@ -132,18 +385,23 @@ public class Game extends AppCompatActivity {
         item2Image.setImageResource(ConversionStringEnDrawableImage(item2.image));
         item3Image.setImageResource(ConversionStringEnDrawableImage(item3.image));
 
+        item1Text.setText(GetItemTextStat(item1));
+        item2Text.setText(GetItemTextStat(item2));
+        item3Text.setText(GetItemTextStat(item3));
+
         View recompences = findViewById(R.id.ChoixRecompenses);
         recompences.setVisibility(View.VISIBLE);
-        //spawn button recompences
     }
 
-    void buttonClickedRecompense(View v)
+    void buttonClickedRecompense()
     {
-        // affichage nouvel item
-        //stats nouvel item
-        //cacher les buttons
-
-        //activer boutton boisson
+        View v = findViewById(R.id.ChoixRecompenses);
+        View v2 = findViewById(R.id.ButtonStart);
+        View v3 = findViewById(R.id.OptionsBoissons);
+        v.setVisibility(View.GONE);
+        v2.setVisibility(View.VISIBLE);
+        v3.setVisibility(View.VISIBLE);
+        UpdateStats();
         StartRound();
     }
 
@@ -153,13 +411,17 @@ public class Game extends AppCompatActivity {
         //vas chercher ses stats sur la bd
         Random rand = new Random();
         monstre = listeMonstre[rand.nextInt(3)];
+        monstre.pv_actuel = monstre.pv_max;
+        ImageView v = findViewById(R.id.ImageMonstre);
+        v.setImageResource(ConversionStringEnDrawableImage(monstre.image));
+        UpdatePv();
     }
 
     void StartGame()
     {
-        Item item1 = new Item(1,3,0,0,0,2,"casque_1");
-        Item item2 = new Item(2,5,3,0,0,3,"casque_7");
-        Item item3 = new Item(0,7,0,7,10,0,"jamb_5");
+        Item item1 = new Item(0,1,1,2,2,2,"casque_1","Casque");
+        Item item2 = new Item(0,1,3,0,3,3,"casque_7","Casque");
+        Item item3 = new Item(0,0,2,7,10,0,"jamb_5","Jambière");
         //...
 
         listeItems[0] = item1;
@@ -167,9 +429,9 @@ public class Game extends AppCompatActivity {
         listeItems[2] = item3;
         //...
 
-        Monster monstre1 = new Monster(0,3,0,7,0,0,"test");
-        Monster monstre2 = new Monster(0,4,1,4,0,0,"test");
-        Monster monstre3 = new Monster(1,2,0,7,1,4,"test");
+        Monster monstre1 = new Monster(0,2,0,7,15,30,"blue_blob");
+        Monster monstre2 = new Monster(0,1,1,5,20,20,"blue_cube");
+        Monster monstre3 = new Monster(1,3,0,7,40,15,"blue_eggman");
         //...
 
         listeMonstre[0] = monstre1;
@@ -177,9 +439,27 @@ public class Game extends AppCompatActivity {
         listeMonstre[2] = monstre3;
         //...
 
-        perso = new Perso(0, 5, 1, 20, 0, 0, null, null, null, null, null, null);
+
+        //+ upgrades
+        perso = new Perso(0 , 1, 0, 20, 0, 0, null, null, null, null, null);
         UpdateStats();
         StartRound();
+    }
+
+    void GAMEOVER()
+    {
+        //give recompense
+        //load en bd
+        //changeScene
+
+
+    }
+
+    void HideButtonBoissons()
+    {
+        View buttons = findViewById(R.id.OptionsBoissons);
+        buttons.setVisibility(View.GONE);
+
     }
 
     void UpdateStats()
@@ -209,8 +489,20 @@ public class Game extends AppCompatActivity {
     void UpdatePv()
     {
         int pvmax = perso.getPv();
+        int monsterPvMax = monstre.pv_max;
         TextView text_pv_stats = findViewById(R.id.text_pv_stats);
+        TextView text_pv_stats_monstre = findViewById(R.id.monstrePv);
+
         text_pv_stats.setText("Points de vie : " + perso.pv_actuel + "/" + pvmax);
+        text_pv_stats_monstre.setText(monstre.pv_actuel + "/" + monsterPvMax);
+    }
+
+    void hideHit()
+    {
+        TextView monshit = findViewById(R.id.monstrehit);
+        TextView pershit = findViewById(R.id.persohit);
+        monshit.setVisibility(View.GONE);
+        pershit.setVisibility(View.GONE);
     }
 
     int ConversionStringEnDrawableImage(String image)
@@ -304,8 +596,78 @@ public class Game extends AppCompatActivity {
             case "bottes_10":
                 return R.drawable.bottes_10;
 
+            // Blobs
+            case "blue_blob":
+                return R.drawable.blue_blob;
+            case "green_blob":
+                return R.drawable.green_blob;
+            case "pink_blob":
+                return R.drawable.pink_blob;
+            case "purple_blob":
+                return R.drawable.purple_blob;
+            case "red_blob":
+                return R.drawable.red_blob;
+            case "white_blob":
+                return R.drawable.white_blob;
+            case "yellow_blob":
+                return R.drawable.yellow_blob;
+
+// Cubes
+            case "blue_cube":
+                return R.drawable.blue_cube;
+            case "green_cube":
+                return R.drawable.green_cube;
+            case "pink_cube":
+                return R.drawable.pink_cube;
+            case "purple_cube":
+                return R.drawable.purple_cube;
+            case "red_cube":
+                return R.drawable.red_cube;
+            case "white_cube":
+                return R.drawable.white_cube;
+            case "yellow_cube":
+                return R.drawable.yellow_cube;
+
+// Eggmen
+            case "blue_eggman":
+                return R.drawable.blue_eggman;
+            case "green_eggman":
+                return R.drawable.green_eggman;
+            case "pink_eggman":
+                return R.drawable.pink_eggman;
+            case "purple_eggman":
+                return R.drawable.purple_eggman;
+            case "red_eggman":
+                return R.drawable.red_eggman;
+            case "white_eggman":
+                return R.drawable.white_eggman;
+            case "yellow_eggman":
+                return R.drawable.yellow_eggman;
+
+// Gluttons
+            case "blue_glutton":
+                return R.drawable.blue_glutton;
+            case "green_glutton":
+                return R.drawable.green_glutton;
+            case "pink_glutton":
+                return R.drawable.pink_glutton;
+            case "purple_glutton":
+                return R.drawable.purple_glutton;
+            case "red_glutton":
+                return R.drawable.red_glutton;
+            case "white_glutton":
+                return R.drawable.white_glutton;
+            case "yellow_glutton":
+                return R.drawable.yellow_glutton;
+
+
             default:
                 return R.drawable.vide; // Image par défaut si aucun cas ne correspond
         }
+    }
+
+    String GetItemTextStat(Item item)
+    {
+        return "dmg : " + item.dammage_min + "-" + item.dammage_max + "\n" + "armor : " + item.armor + "\n" + "pv : " + item.pv + "\n" + "crit : " + item.critChance+ "\n" + "dodge : " + item.dodgeChance;
     }
 }

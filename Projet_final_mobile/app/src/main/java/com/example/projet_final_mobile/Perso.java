@@ -12,10 +12,9 @@ public class Perso {
     public Item plastron;
     public Item jambiere;
     public Item bottes;
-    public Item arme1;
-    public Item arme2;
+    public Item arme;
 
-    public Perso(int dammage_min_p,int dammage_max_p, int armor_p,  int pv_p,  int dodgechance_p,  int critchance_p,Item casque_p,Item plastron_p,Item jambiere_p,Item bottes_p,Item arme1_p,Item arme2_p)
+    public Perso(int dammage_min_p,int dammage_max_p, int armor_p,  int pv_p,  int dodgechance_p,  int critchance_p,Item casque_p,Item plastron_p,Item jambiere_p,Item bottes_p,Item arme_p)
     {
         dammage_min = dammage_min_p;
         dammage_max = dammage_max_p;
@@ -27,8 +26,7 @@ public class Perso {
         plastron = plastron_p;
         jambiere = jambiere_p;
         bottes = bottes_p;
-        arme1 = arme1_p;
-        arme2 = arme2_p;
+        arme = arme_p;
 
         pv_actuel = pv_max;
     }
@@ -56,15 +54,12 @@ public class Perso {
             retour += bottes.dammage_min;
         }
 
-        if(arme1 != null)
+        if(arme != null)
         {
-            retour += arme1.dammage_min;
+            retour += arme.dammage_min;
         }
 
-        if(arme2 != null)
-        {
-            retour += arme2.dammage_min;
-        }
+
 
         return retour;
     }
@@ -92,14 +87,14 @@ public class Perso {
             retour += bottes.dammage_max;
         }
 
-        if(arme1 != null)
+        if(arme != null)
         {
-            retour += arme1.dammage_max;
+            retour += arme.dammage_max;
         }
 
-        if(arme2 != null)
+        if(retour < getDammage_min())
         {
-            retour += arme2.dammage_max;
+            return getDammage_min();
         }
 
         return retour;
@@ -128,15 +123,12 @@ public class Perso {
             retour += bottes.armor;
         }
 
-        if(arme1 != null)
+        if(arme != null)
         {
-            retour += arme1.armor;
+            retour += arme.armor;
         }
 
-        if(arme2 != null)
-        {
-            retour += arme2.armor;
-        }
+
 
         return retour;
     }
@@ -164,15 +156,12 @@ public class Perso {
             retour += bottes.pv;
         }
 
-        if(arme1 != null)
+        if(arme != null)
         {
-            retour += arme1.pv;
+            retour += arme.pv;
         }
 
-        if(arme2 != null)
-        {
-            retour += arme2.pv;
-        }
+
 
         return retour;
     }
@@ -200,15 +189,12 @@ public class Perso {
             retour += bottes.dodgeChance;
         }
 
-        if(arme1 != null)
+        if(arme != null)
         {
-            retour += arme1.dodgeChance;
+            retour += arme.dodgeChance;
         }
 
-        if(arme2 != null)
-        {
-            retour += arme2.dodgeChance;
-        }
+
 
         return retour;
     }
@@ -236,15 +222,12 @@ public class Perso {
             retour += bottes.critChance;
         }
 
-        if(arme1 != null)
+        if(arme != null)
         {
-            retour += arme1.critChance;
+            retour += arme.critChance;
         }
 
-        if(arme2 != null)
-        {
-            retour += arme2.critChance;
-        }
+
 
         return retour;
     }
