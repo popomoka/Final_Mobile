@@ -3,11 +3,14 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.io.IOException;
 
 public class API_model {
-    public static Monster[] GetAllLMonstre(){
-        Monster[] _monstres = new Monster[1];
+    public static List<Monster> GetAllMonstre(){
+        List<Monster> _monstres = new ArrayList<>();
         String brute = API_Caller.test();
 
         try {
@@ -29,7 +32,7 @@ public class API_model {
                 int critChance = jsonObject.getInt("critchance");
                 String image = jsonObject.getString("image");
 
-                _monstres[i] = new Monster(damageMin,damageMax,armor,pvMax,dodgeChance,critChance,image);
+                _monstres.add(new Monster(damageMin,damageMax,armor,pvMax,dodgeChance,critChance,image));
             }
         }
         catch (JSONException e) {

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="#f0e5cf">
+
+    <!-- Liste des monstres -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/monster_list"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#d9c3a6"
+        android:scrollbars="vertical" />
+
+    <!-- Section de droite -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="#8bb174">
+
+        <!-- Image du monstre -->
+        <ImageView
+            android:id="@+id/monster_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:background="#ffffff"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Statistiques du monstre -->
+        <TextView
+            android:id="@+id/monster_dammage_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dammage Min:"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:background="#5d8233"
+            android:padding="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/monster_dammage_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dammage Max:"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:background="#5d8233"
+            android:padding="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/monster_armor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Armor:"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:background="#5d8233"
+            android:padding="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/monster_pv_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PV Max:"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:background="#5d8233"
+            android:padding="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/monster_dodgechance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dodge Chance:"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:background="#5d8233"
+            android:padding="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/monster_critchance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crit Chance:"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:background="#5d8233"
+            android:padding="4dp" />
+    </LinearLayout>
+
+</LinearLayout>
+
