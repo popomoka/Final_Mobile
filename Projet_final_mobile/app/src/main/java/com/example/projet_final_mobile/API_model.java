@@ -11,7 +11,7 @@ import java.io.IOException;
 public class API_model {
     public static List<Monster> GetAllMonstre(){
         List<Monster> _monstres = new ArrayList<>();
-        String brute = API_Caller.test();
+        String brute = API_Caller.GetAllMonstre();
 
         try {
             JSONArray jsonArray = new JSONArray(brute);
@@ -40,6 +40,41 @@ public class API_model {
         }
 
         return _monstres;
+    }
+
+    public static List<Item> GetAllItems(){
+        List<Item> _items = new ArrayList<>();
+        String brute = API_Caller.GetAllItems();
+
+        try {
+            JSONArray jsonArray = new JSONArray(brute);
+
+            // Parcourir chaque élément du tableau JSON
+            for (int i = 0; i < jsonArray.length(); i++) {
+                // Récupérer chaque élément comme JSONObject
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                // Extraire les valeurs
+                int id = jsonObject.getInt("id");
+                int damageMin = jsonObject.getInt("dammage_min");
+                int damageMax = jsonObject.getInt("dammage_max");
+                int armor = jsonObject.getInt("armor");
+                int pvMax = jsonObject.getInt("pv_max");
+                int pvActuel = jsonObject.getInt("pv_actuel");
+                int dodgeChance = jsonObject.getInt("dodgechance");
+                int critChance = jsonObject.getInt("critchance");
+                String image = jsonObject.getString("image");
+                String type = jsonObject.getString("type");
+
+
+                _items.add(new Item(damageMin,damageMax,armor,pvMax,dodgeChance,critChance,image,type));
+            }
+        }
+        catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return _items;
     }
 
     public static User Login(String username, String password){

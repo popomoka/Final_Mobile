@@ -14,9 +14,39 @@ import java.io.*;
 
 public class API_Caller {
 
-    public static String test() {
+    public static String GetAllMonstre() {
         try {
             URL url = new URL("https://mathf32.pythonanywhere.com/api/monsters");
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            //Getting the response code
+            int responsecode = conn.getResponseCode();
+
+
+            InputStream inputStream = conn.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+
+            Log.d("Reponse",response.toString());
+            return response.toString();
+        } catch (IOException e) {
+            Log.d("Erreur",e.getMessage());
+            return "Erreur";
+        }
+
+
+    }
+
+    public static String GetAllItems() {
+        try {
+            URL url = new URL("https://mathf32.pythonanywhere.com/api/items");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");

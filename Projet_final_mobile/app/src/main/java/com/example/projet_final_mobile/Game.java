@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Handler;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,15 +27,16 @@ public class Game extends AppCompatActivity {
     public Monster monstre;
     boolean combatIsOver;
     String vitesse;
-    Item[] listeItems = new Item[40];
-    Monster[] listeMonstre = new Monster[40];
+    List<Item> listeItems = new ArrayList<>();
+    List<Monster> listeMonstre = new ArrayList<>();
     Handler handler = new Handler(Looper.getMainLooper());
     Item[] ItemSelection = new Item[3];
     User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        User user = (User)getIntent().getSerializableExtra("USER");
+        //user = (User)getIntent().getSerializableExtra("USER");
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.game_activity);
@@ -368,9 +372,11 @@ public class Game extends AppCompatActivity {
         ImageMonstre.setImageResource(R.drawable.vide);
 
         //should be random
-        Item item1 = listeItems[0];
-        Item item2 = listeItems[1];
-        Item item3 = listeItems[2];
+        Random rand = new Random();
+
+        Item item1 = listeItems.get(rand.nextInt(listeItems.size()));
+        Item item2 = listeItems.get(rand.nextInt(listeItems.size()));
+        Item item3 = listeItems.get(rand.nextInt(listeItems.size()));
 
         ItemSelection[0] = item1;
         ItemSelection[1] = item2;
@@ -413,7 +419,7 @@ public class Game extends AppCompatActivity {
         //genere un id selon la round
         //vas chercher ses stats sur la bd
         Random rand = new Random();
-        monstre = listeMonstre[rand.nextInt(3)];
+        monstre = listeMonstre.get(rand.nextInt(listeMonstre.size()));
         monstre.pv_actuel = monstre.pv_max;
         ImageView v = findViewById(R.id.ImageMonstre);
         v.setImageResource(ConversionStringEnDrawableImage(monstre.image));
@@ -422,37 +428,17 @@ public class Game extends AppCompatActivity {
 
     void StartGame()
     {
-        Item item1 = new Item(0,1,1,2,2,2,"casque_1","Casque");
-        Item item2 = new Item(0,1,3,0,3,3,"casque_7","Casque");
-        Item item3 = new Item(0,0,2,7,10,0,"jamb_5","Jambière");
-        //...
-
-        listeItems[0] = item1;
-        listeItems[1] = item2;
-        listeItems[2] = item3;
-        //...
-
-        /*new Thread(() -> {
-            User user = API_model.Login(emailEditText.getText().toString(),passwordEditText.getText().toString());
-            if(user != null)
-            {
-                runOnUiThread(() -> {
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.putExtra("USER", user);
-                    startActivity(intent);
-                });
-            }
+        new Thread(() -> {
+            listeItems = API_model.GetAllItems();
         }).start();
 
-
-        listeMonstre[0] = monstre1;
-        listeMonstre[1] = monstre2;
-        listeMonstre[2] = monstre3;
-        //...
-        */
+        new Thread(() -> {
+            listeMonstre = API_model.GetAllMonstre();
+        }).start();
 
         //+ upgrades
-        perso = new Perso(0 , 1, 0, 20, 0, 0, null, null, null, null, null);
+        perso = new Perso(user.upgradebought[0] , user.upgradebought[1], user.upgradebought[2], user.upgradebought[3], user.upgradebought[4], user.upgradebought[5], null, null, null, null, null);
+        //perso = new Perso(0,0,0,0,0,0,null,null,null,null,null);
         UpdateStats();
         StartRound();
     }
