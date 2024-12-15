@@ -48,6 +48,10 @@ public class Monstre_Bestiaire extends AppCompatActivity {
 
         // Définir l'adaptateur
         monstreList adapter = new monstreList(les_Monstres, monster -> {
+            if(monster == null)
+            {
+                monster = les_Monstres.get(0);
+            }
             // Action lorsqu'un monstre est cliqué
             // Exemple : changer l'image et afficher des stats fictives
             monsterImage.setImageResource(getResources().getIdentifier(monster.image, "drawable", getPackageName())); // Remplacez par une image réelle
