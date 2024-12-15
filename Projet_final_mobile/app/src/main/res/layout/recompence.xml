@@ -36,6 +36,7 @@
                                 android:layout_marginTop="60dp"/>
 
                             <TextView
+                                android:id="@+id/cash"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="50dp"
@@ -43,7 +44,28 @@
                                 android:text="17$"
                                 android:layout_gravity="center"
                                 android:gravity="center"
+                                android:layout_marginTop="10dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="40dp"
+                                android:textColor="@color/white"
+                                android:text="En reussissant :"
+                                android:layout_gravity="center"
+                                android:gravity="center"
                                 android:layout_marginTop="60dp"/>
+
+                            <TextView
+                                android:id="@+id/rounds"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="50dp"
+                                android:textColor="@color/white"
+                                android:text="12 rondes"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"/>
 
                             <Button
                                 android:layout_width="wrap_content"

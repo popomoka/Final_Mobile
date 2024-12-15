@@ -59,10 +59,9 @@ public class API_model {
                 int damageMin = jsonObject.getInt("dammage_min");
                 int damageMax = jsonObject.getInt("dammage_max");
                 int armor = jsonObject.getInt("armor");
-                int pvMax = jsonObject.getInt("pv_max");
-                int pvActuel = jsonObject.getInt("pv_actuel");
-                int dodgeChance = jsonObject.getInt("dodgechance");
-                int critChance = jsonObject.getInt("critchance");
+                int pvMax = jsonObject.getInt("pv");
+                int dodgeChance = jsonObject.getInt("dodgeChance");
+                int critChance = jsonObject.getInt("critChance");
                 String image = jsonObject.getString("image");
                 String type = jsonObject.getString("type");
 

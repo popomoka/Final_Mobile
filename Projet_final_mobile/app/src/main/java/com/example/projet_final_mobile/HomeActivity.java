@@ -44,9 +44,19 @@ public class HomeActivity extends AppCompatActivity {
         buttonBestiaire.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("Test","test");
+
                 Intent intent = new Intent(HomeActivity.this, Monstre_Bestiaire.class);
 
+                startActivity(intent);
+            }
+        });
+
+        Button Deco = (Button)findViewById(R.id.logoutButton);
+        Deco.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });

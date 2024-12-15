@@ -22,21 +22,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.w3c.dom.Text;
 
 public class Game extends AppCompatActivity {
-
+    private static double[] probabilities = {0.529, 0.2, 0.1, 0.08, 0.05, 0.023, 0.01, 0.005, 0.002, 0.001};
     public Perso perso;
     public Monster monstre;
     boolean combatIsOver;
     String vitesse;
-    List<Item> listeItems = new ArrayList<>();
-    List<Monster> listeMonstre = new ArrayList<>();
+    final List<Item> listeItems = new ArrayList<>();
+    final List<Monster> listeMonstre = new ArrayList<>();
     Handler handler = new Handler(Looper.getMainLooper());
     Item[] ItemSelection = new Item[3];
     User user;
+    Random rand = new Random();
+    int round;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //user = (User)getIntent().getSerializableExtra("USER");
+        user = (User)getIntent().getSerializableExtra("USER");
 
+
+        round =0;
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.game_activity);
@@ -61,7 +65,9 @@ public class Game extends AppCompatActivity {
         buttonquit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //quit
+                Intent intent = new Intent(Game.this, HomeActivity.class);
+                intent.putExtra("USER", user );
+                startActivity(intent);
             }
         });
 
@@ -87,6 +93,10 @@ public class Game extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 perso.pv_actuel += 3;
+                if (perso.pv_actuel>perso.getPv())
+                {
+                    perso.pv_actuel=perso.getPv() ;
+                }
                 UpdateStats();
                 HideButtonBoissons();
             }
@@ -97,6 +107,10 @@ public class Game extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 perso.pv_actuel += 10;
+                if (perso.pv_actuel>perso.getPv())
+                {
+                    perso.pv_actuel=perso.getPv() ;
+                }
                 UpdateStats();
                 HideButtonBoissons();
             }
@@ -119,25 +133,25 @@ public class Game extends AppCompatActivity {
             public void onClick(View v) {
                 ImageView view;
                 TextView textview;
-                if(ItemSelection[0].type == "Casque")
+                if(ItemSelection[0].type.equals("Casque"))
                 {
                     perso.casque = ItemSelection[0];
                     textview = findViewById((R.id.casqueText));
                     view = findViewById(R.id.casqueImage);
                 }
-                else if(ItemSelection[0].type == "Plastron")
+                else if(ItemSelection[0].type.equals("Plastron"))
                 {
                     perso.plastron = ItemSelection[0];
                     textview = findViewById((R.id.plastronText));
                     view = findViewById(R.id.plastronImage);
                 }
-                else if(ItemSelection[0].type == "Jambière")
+                else if(ItemSelection[0].type.equals("Jambière"))
                 {
                     perso.jambiere = ItemSelection[0];
                     textview = findViewById((R.id.jambiereText));
                     view = findViewById(R.id.jambiereImage);
                 }
-                else if(ItemSelection[0].type == "Bottes")
+                else if(ItemSelection[0].type.equals("Bottes"))
                 {
                     perso.bottes = ItemSelection[0];
                     textview = findViewById((R.id.bottesText));
@@ -161,25 +175,25 @@ public class Game extends AppCompatActivity {
             public void onClick(View v) {
                 ImageView view;
                 TextView textview;
-                if(ItemSelection[1].type == "Casque")
+                if(ItemSelection[1].type.equals("Casque"))
                 {
                     perso.casque = ItemSelection[1];
                     textview = findViewById((R.id.casqueText));
                     view = findViewById(R.id.casqueImage);
                 }
-                else if(ItemSelection[1].type == "Plastron")
+                else if(ItemSelection[1].type.equals("Plastron"))
                 {
                     perso.plastron = ItemSelection[1];
                     textview = findViewById((R.id.plastronText));
                     view = findViewById(R.id.plastronImage);
                 }
-                else if(ItemSelection[1].type == "Jambière")
+                else if(ItemSelection[1].type.equals("Jambière"))
                 {
                     perso.jambiere = ItemSelection[1];
                     textview = findViewById((R.id.jambiereText));
                     view = findViewById(R.id.jambiereImage);
                 }
-                else if(ItemSelection[1].type == "Bottes")
+                else if(ItemSelection[1].type.equals("Bottes"))
                 {
                     perso.bottes = ItemSelection[1];
                     textview = findViewById((R.id.bottesText));
@@ -203,25 +217,25 @@ public class Game extends AppCompatActivity {
             public void onClick(View v) {
                 ImageView view;
                 TextView textview;
-                if(ItemSelection[2].type == "Casque")
+                if(ItemSelection[2].type.equals("Casque"))
                 {
                     perso.casque = ItemSelection[2];
                     textview = findViewById((R.id.casqueText));
                     view = findViewById(R.id.casqueImage);
                 }
-                else if(ItemSelection[2].type == "Plastron")
+                else if(ItemSelection[2].type.equals("Plastron"))
                 {
                     perso.plastron = ItemSelection[2];
                     textview = findViewById((R.id.plastronText));
                     view = findViewById(R.id.plastronImage);
                 }
-                else if(ItemSelection[2].type == "Jambière")
+                else if(ItemSelection[2].type.equals("Jambière"))
                 {
                     perso.jambiere = ItemSelection[2];
                     textview = findViewById((R.id.jambiereText));
                     view = findViewById(R.id.jambiereImage);
                 }
-                else if(ItemSelection[2].type == "Bottes")
+                else if(ItemSelection[2].type.equals("Bottes"))
                 {
                     perso.bottes = ItemSelection[2];
                     textview = findViewById((R.id.bottesText));
@@ -249,7 +263,7 @@ public class Game extends AppCompatActivity {
         @Override
         public void run() {
             hideHit();
-            Random rand = new Random();
+
             int dodge = rand.nextInt(101);
             int crit = rand.nextInt(101);
             switch(montour)
@@ -257,12 +271,12 @@ public class Game extends AppCompatActivity {
                 case 1:
                     TextView dammageText = findViewById(R.id.monstrehit);
                     if(dodge>=monstre.dodgechance) {
-                        if(crit>=perso.critChance){
+                        if(crit>=perso.getCritChance()){
                             dammageText.setTextColor(Color.parseColor("#FF0000"));
-                            GiveDammage(rand.nextInt((perso.dammage_max - perso.dammage_min) + 1) + perso.dammage_min);
+                            GiveDammage(rand.nextInt((perso.getDammage_max() - perso.getDammage_min()) + 1) + perso.getDammage_min());
                         } else{
                             dammageText.setTextColor(Color.parseColor("#FFFF00"));
-                            GiveDammage(2*(rand.nextInt((perso.dammage_max - perso.dammage_min) + 1) + perso.dammage_min));
+                            GiveDammage(2*(rand.nextInt((perso.getDammage_max() - perso.getDammage_min()) + 1) + perso.getDammage_min()));
                         }
                     }
                     else{
@@ -272,7 +286,7 @@ public class Game extends AppCompatActivity {
                     break;
                 case 0:
                     TextView dammagepersoText = findViewById(R.id.persohit);
-                    if(dodge>=perso.dodgeChance) {
+                    if(dodge>=perso.getDodgeChance()) {
                         if(crit>=monstre.critchance){
                             dammagepersoText.setTextColor(Color.parseColor("#FF0000"));
                             TakeDammage(rand.nextInt((monstre.dammage_max - monstre.dammage_min) + 1) + monstre.dammage_min);
@@ -323,6 +337,11 @@ public class Game extends AppCompatActivity {
     void TakeDammage(int ammount)
     {
         TextView view = findViewById(R.id.persohit);
+        ammount -= perso.getArmor();
+        if (ammount<0)
+        {
+            ammount = 0;
+        }
         view.setText("-" + ammount);
         view.setVisibility(View.VISIBLE);
 
@@ -346,6 +365,13 @@ public class Game extends AppCompatActivity {
     void GiveDammage(int ammount)
     {
         TextView view = findViewById(R.id.monstrehit);
+        ammount -= monstre.armor;
+
+        if (ammount<0)
+        {
+            ammount = 0;
+        }
+
         view.setText("-" + ammount);
         view.setVisibility(View.VISIBLE);
 
@@ -368,15 +394,19 @@ public class Game extends AppCompatActivity {
 
     void endround()
     {
+        round ++;
         ImageView ImageMonstre = findViewById(R.id.ImageMonstre);
         ImageMonstre.setImageResource(R.drawable.vide);
 
-        //should be random
-        Random rand = new Random();
 
-        Item item1 = listeItems.get(rand.nextInt(listeItems.size()));
-        Item item2 = listeItems.get(rand.nextInt(listeItems.size()));
-        Item item3 = listeItems.get(rand.nextInt(listeItems.size()));
+        int id1 = GetItemId();
+        int id2 = GetItemId();
+        int id3 = GetItemId();
+
+
+        Item item1 = listeItems.get(id1);
+        Item item2 = listeItems.get(id2);
+        Item item3 = listeItems.get(id3);
 
         ItemSelection[0] = item1;
         ItemSelection[1] = item2;
@@ -417,9 +447,18 @@ public class Game extends AppCompatActivity {
     void GenerateMonster()
     {
         //genere un id selon la round
-        //vas chercher ses stats sur la bd
-        Random rand = new Random();
-        monstre = listeMonstre.get(rand.nextInt(listeMonstre.size()));
+        int i = rand.nextInt(10)-5+round;
+
+        if (i<0)
+        {
+            i=0;
+        }
+        if (i > listeMonstre.size())
+        {
+            i = listeMonstre.size();
+        }
+
+        monstre = listeMonstre.get(i);
         monstre.pv_actuel = monstre.pv_max;
         ImageView v = findViewById(R.id.ImageMonstre);
         v.setImageResource(ConversionStringEnDrawableImage(monstre.image));
@@ -428,31 +467,52 @@ public class Game extends AppCompatActivity {
 
     void StartGame()
     {
-        new Thread(() -> {
-            listeItems = API_model.GetAllItems();
-        }).start();
+        Thread t = new Thread(() -> {
+            List<Monster> m = API_model.GetAllMonstre();
+            synchronized (listeMonstre){
+                listeMonstre.clear();
+                listeMonstre.addAll(m);
+            }
+        });
+        t.start();
+        try {
+            t.join(); // Attendre que le thread termine son exécution
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        new Thread(() -> {
-            listeMonstre = API_model.GetAllMonstre();
-        }).start();
 
-        //+ upgrades
-        perso = new Perso(user.upgradebought[0] , user.upgradebought[1], user.upgradebought[2], user.upgradebought[3], user.upgradebought[4], user.upgradebought[5], null, null, null, null, null);
-        //perso = new Perso(0,0,0,0,0,0,null,null,null,null,null);
+
+
+        Thread t2 = new Thread(() -> {
+            List<Item> i = API_model.GetAllItems();
+            synchronized (listeItems){
+                listeItems.clear();
+                listeItems.addAll(i);
+            }
+        });
+        t2.start();
+        try {
+            t2.join(); // Attendre que le thread termine son exécution
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        perso = new Perso(user.upgradebought[0], user.upgradebought[1]+1, user.upgradebought[2], user.upgradebought[3] + 20, user.upgradebought[4], user.upgradebought[5], null, null, null, null, null);
         UpdateStats();
         StartRound();
     }
 
     void GAMEOVER()
     {
-        Intent intent = new Intent(Game.this, HomeActivity.class);
-        intent.putExtra("USERNAME", "pops" );
+        Intent intent = new Intent(Game.this, RecomenceActivity.class);
+        intent.putExtra("USER", user);
+        intent.putExtra("ROUND", round);
         startActivity(intent);
-
 
         //give recompense
         //load en bd
-        //changeScene
     }
 
     void HideButtonBoissons()
@@ -464,6 +524,11 @@ public class Game extends AppCompatActivity {
 
     void UpdateStats()
     {
+        if (perso.pv_actuel>perso.getPv())
+        {
+            perso.pv_actuel=perso.getPv() ;
+        }
+
         int dmgmin = perso.getDammage_min();
         int dmgmax = perso.getDammage_max();
         TextView text_dammage_stats = findViewById(R.id.text_dammage_stats);
@@ -484,6 +549,7 @@ public class Game extends AppCompatActivity {
         int dodgeChance = perso.getDodgeChance();
         TextView text_dodge_stats = findViewById(R.id.text_dodge_stats);
         text_dodge_stats.setText("Chance d'esquive: " + dodgeChance + "%");
+
     }
 
     void UpdatePv()
@@ -596,6 +662,28 @@ public class Game extends AppCompatActivity {
             case "bottes_10":
                 return R.drawable.bottes_10;
 
+            // epee (1 à 10)
+            case "epee1":
+                return R.drawable.epee1;
+            case "epee2":
+                return R.drawable.epee2;
+            case "epee3":
+                return R.drawable.epee3;
+            case "epee4":
+                return R.drawable.epee4;
+            case "epee5":
+                return R.drawable.epee5;
+            case "epee6":
+                return R.drawable.epee6;
+            case "epee7":
+                return R.drawable.epee7;
+            case "epee8":
+                return R.drawable.epee8;
+            case "epee9":
+                return R.drawable.epee9;
+            case "epee10":
+                return R.drawable.epee10;
+
             // Blobs
             case "blue_blob":
                 return R.drawable.blue_blob;
@@ -670,4 +758,22 @@ public class Game extends AppCompatActivity {
     {
         return "dmg : " + item.dammage_min + "-" + item.dammage_max + "\n" + "armor : " + item.armor + "\n" + "pv : " + item.pv + "\n" + "crit : " + item.critChance+ "\n" + "dodge : " + item.dodgeChance;
     }
+
+    public static int GetItemId() {
+        Random rand = new Random();
+
+        // Générer un nombre aléatoire entre 0 et 1
+        double randomValue = rand.nextDouble();
+
+        // Calculer lequel des objets doit être choisi en fonction de la probabilité
+        double cumulativeProbability = 0.0;
+        for (int i = 0; i < probabilities.length; i++) {
+            cumulativeProbability += probabilities[i];
+            if (randomValue <= cumulativeProbability) {
+                return rand.nextInt(5)+i*5+1;
+            }
+        }
+        return rand.nextInt(5)+1; // Retourne le dernier objet si quelque chose ne va pas
+    }
+
 }
