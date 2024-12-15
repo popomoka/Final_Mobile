@@ -139,5 +139,34 @@ public class ApiCall_Perso {
             return null;
         }
     }
+    //Cette fonction appelle l'api et doit recevoir la liste de tout les user
+    public static String AllUser() {
+        try {
+            //Parametre de la requete
+            URL url = new URL("https://mathf32.pythonanywhere.com/api/Utilisateur");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            //Reponse de l'api
+            int responsecode = conn.getResponseCode();
+
+
+            //Lecture de la réponse
+            InputStream inputStream = conn.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+
+            Log.d("Reponse",response.toString());
+            return response.toString();
+        } catch (IOException e) {
+            Log.d("Erreur",e.getMessage());
+            return "Erreur";
+        }
+    }
 }
 
