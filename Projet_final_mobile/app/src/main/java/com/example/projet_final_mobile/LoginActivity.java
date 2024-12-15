@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     new Thread(() -> {
                         User user = API_model.Login(emailEditText.getText().toString(),passwordEditText.getText().toString());
+                        user.password = password;
                         if(user != null)
                         {
                             runOnUiThread(() -> {
@@ -46,8 +47,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }).start();
                 }
-
-
             }
         });
     }

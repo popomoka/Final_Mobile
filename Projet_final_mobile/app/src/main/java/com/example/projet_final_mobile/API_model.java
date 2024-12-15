@@ -88,6 +88,7 @@ public class API_model {
             // Extraire les attributs de l'utilisateur et les affecter aux variables
             String nom = jsonObject.getString("username");
             String email = jsonObject.getString("email");
+            int id = jsonObject.getInt("id");
             int lvl = jsonObject.getInt("lvl");
             int cash = jsonObject.getInt("cash");
 
@@ -108,7 +109,7 @@ public class API_model {
 
             int bestwave = jsonObject.getInt("bestwave");
 
-            _user = new User(nom,email,"mdp",lvl,cash,upgradeBought,skinBought,bestwave);
+            _user = new User(id,nom,email,"",lvl,cash,upgradeBought,skinBought,bestwave);
 
         }
         catch (JSONException e) {

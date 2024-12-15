@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.EdgeToEdge;
 
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(HomeActivity.this, Game.class);
                 intent.putExtra("USER", user);
                 startActivity(intent);
@@ -44,7 +47,16 @@ public class HomeActivity extends AppCompatActivity {
         buttonBestiaire.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Log.d("Test","test");
+                Thread t = new Thread(() -> {
+                    user.cash = 142;
+                    ApiCall_Perso.PutPerso(user);
+                });
+                t.start();
+                try {
+                    t.join(); // Attendre que le thread termine son exécution
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(HomeActivity.this, Monstre_Bestiaire.class);
 
                 startActivity(intent);
