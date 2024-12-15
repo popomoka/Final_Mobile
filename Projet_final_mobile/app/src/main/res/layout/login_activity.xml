@@ -35,5 +35,11 @@
         android:layout_height="wrap_content"
         android:text="@string/se_connecter"
         android:layout_marginTop="24dp" />
+    <Button
+        android:id="@+id/SignInButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Inscription"
+        android:layout_marginTop="24dp" />
 
 </LinearLayout>

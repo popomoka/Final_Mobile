@@ -1,5 +1,6 @@
 package com.example.projet_final_mobile;
 import android.util.Log;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -7,13 +8,13 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class ApiCall_Monstre {
+public class ApiCall_Item {
 
-    //Cette fonction appelle l'api et doit recevoir la liste de tout les monstres
-    public static String AllMonstre() {
+    //Appel l'api pour recevoir la liste d'item de l'api
+    public static String GetAllItems() {
         try {
-            //Parametre de la requete
-            URL url = new URL("https://mathf32.pythonanywhere.com/api/monsters");
+            //Parametre de la requete Get
+            URL url = new URL("https://mathf32.pythonanywhere.com/api/items");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
@@ -31,12 +32,11 @@ public class ApiCall_Monstre {
             }
             reader.close();
 
-            Log.d("Reponse",response.toString());
+            Log.d("Reponse", response.toString());
             return response.toString();
         } catch (IOException e) {
-            Log.d("Erreur",e.getMessage());
+            Log.d("Erreur", e.getMessage());
             return "Erreur";
         }
     }
 }
-
