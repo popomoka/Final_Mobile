@@ -24,7 +24,9 @@
     <string name="Dommage">Dommage</string>
     <string name="retour">Retour</string>
     <string name="Quit">Quitter</string>
-
+    <string name="Inscription">Inscription</string>
+    <string name="Erreur_username">Veuillez remplir tous les champs</string>
+    <string name="Champ_manquant">Username invalide</string>
 
 
 

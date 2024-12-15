@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Final_Mobile_Project</string>
+    <string name="connexion">Login</string>
+    <string name="username">Username</string>
+    <string name="mot_de_passe">Password</string>
+    <string name="se_connecter">Login</string>
+    <string name="options">Settings</string>
+    <string name="deconnexion">Logout</string>
+    <string name="amelioration">Upgrade</string>
+    <string name="jouer_une_partie">Play a game</string>
+    <string name="nom_du_jeu">Drunk Hero</string>
+    <string name="start">Start</string>
+    <string name="Bestiaire">Bestiary</string>
+    <string name="Argent">Money</string>
+    <string name="Dommage_min">Minimum damage</string>
+    <string name="Dommage_max">Maximum damage</string>
+    <string name="Armure">Armor</string>
+    <string name="Pv">Health</string>
+    <string name="Dodge">Dodge chance</string>
+    <string name="Crit">Critical chance</string>
+    <string name="vitesse_normal">Speed: normal</string>
+    <string name="vitesse_rapide">Speed: fast</string>
+    <string name="dodge_combat">Dodge</string>
+    <string name="Dommage">Damage</string>
+    <string name="retour">Back</string>
+    <string name="Quit">Quit</string>
+    <string name="Inscription">Sign in</string>
+    <string name="Erreur_username">Invalide username</string>
+    <string name="Champ_manquant">Please, fill all the fields</string>
+
+
+</resources>
