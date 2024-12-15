@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Validation des champs
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.Champ_manquant, Toast.LENGTH_SHORT).show();
                 } else {
                     new Thread(() -> {
                         //Connect le user
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Validation des champs
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.Champ_manquant, Toast.LENGTH_SHORT).show();
                 } else {
                     new Thread(() -> {
                         //Créer le user si le username est déjà pris renvoie null
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                         else{
                             //Affiche un Toast en cas d'erreur de username
                             runOnUiThread(() -> {
-                                Toast.makeText(LoginActivity.this, "Username invalide", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, R.string.Erreur_username, Toast.LENGTH_SHORT).show();
                             });
 
                         }
