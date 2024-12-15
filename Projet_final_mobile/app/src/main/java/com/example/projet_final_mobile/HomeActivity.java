@@ -20,7 +20,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.home_activity);
 
         User user = (User)getIntent().getSerializableExtra("USER");
-
+        //L'app démarre sur cette page donc on dit que si le user est null
+        // ça renvoie à la page de connexion sinon reste sur la page homeactivity
         if(user != null)
         {
             TextView usernameTextView = findViewById(R.id.welcomeText);
@@ -32,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        //Créer le onclick sur le bouton jouer qui va renvoyer au jeu
         Button button= (Button)findViewById(R.id.jouerButton);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -43,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //Créer le onClick pour le bouton bestiaire qui renvoie à la page bestiaire
         Button buttonBestiaire= (Button)findViewById(R.id.BestiaireButton);
         buttonBestiaire.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -52,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //Set le Onclick pour le bouton deconnexion qui renvoie à la page connexion
         Button Deco = (Button)findViewById(R.id.logoutButton);
         Deco.setOnClickListener(new View.OnClickListener(){
             @Override
