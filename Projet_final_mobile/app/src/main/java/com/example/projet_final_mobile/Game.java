@@ -22,31 +22,49 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.w3c.dom.Text;
 
 public class Game extends AppCompatActivity {
+    //tableau qui regi les chances d'avoir un item avec de meilleurs statistiques
     private static double[] probabilities = {0.529, 0.2, 0.1, 0.08, 0.05, 0.023, 0.01, 0.005, 0.002, 0.001};
+
+    //variables
     public Perso perso;
     public Monster monstre;
     boolean combatIsOver;
+    User user;
+
+    //vitesse de jeux
     String vitesse;
+
+    //liste
     final List<Item> listeItems = new ArrayList<>();
     final List<Monster> listeMonstre = new ArrayList<>();
-    Handler handler = new Handler(Looper.getMainLooper());
     Item[] ItemSelection = new Item[3];
-    User user;
-    Random rand = new Random();
+
+    //pour la loop de combat
+    Handler handler = new Handler(Looper.getMainLooper());
+
+    //var de combat
     int round;
+    int nbCoup;
+
+    //random
+    Random rand = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //set les variables
         user = (User)getIntent().getSerializableExtra("USER");
-
-
+        nbCoup = 0;
         round =0;
+        vitesse = "normal";
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.game_activity);
-        vitesse = "normal";
+
+        //set les parametres pour débuter le jeu
         StartGame();
 
+        //boutton qui commence une ronde
         Button button = (Button)findViewById(R.id.ButtonStart);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -61,6 +79,7 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        //boutton qui permet de quiter la partie
         Button buttonquit = (Button)findViewById(R.id.Quitter);
         buttonquit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -71,23 +90,25 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        //change la vitesse de jeu entre normal et rapide
         Button buttonvitesse = (Button)findViewById(R.id.vitesse);
         buttonvitesse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(buttonvitesse.getText()=="Vitesse : normal")
+                if(vitesse.equals("normal"))
                 {
                     vitesse = "rapide";
-                    buttonvitesse.setText("Vitesse : rapide");
+                    buttonvitesse.setText(R.string.vitesse_rapide);
                 }
                 else
                 {
                     vitesse = "normal";
-                    buttonvitesse.setText("Vitesse : normal");
+                    buttonvitesse.setText(R.string.vitesse_normal);
                 }
             }
         });
 
+        //bouton qui te redonne une petite quantité de point de vie
         Button buttonsmallpv = (Button)findViewById(R.id.smallpvButton);
         buttonsmallpv.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -102,6 +123,7 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        //bouton qui te redonne une grande quantité de point de vie
         Button buttonBigPv = (Button)findViewById(R.id.bigpvButton);
         buttonBigPv.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -116,7 +138,7 @@ public class Game extends AppCompatActivity {
             }
         });
 
-
+        //boutton qui te rajoute 1% de crit de base
         Button buttoncrit = (Button)findViewById(R.id.critButton);
         buttoncrit.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -127,6 +149,7 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        //boutton de selection du premier item lors des récompences
         ImageView ImageViewItem1 = findViewById(R.id.Item1);
         ImageViewItem1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +192,7 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        //boutton de selection du deuxieme item lors des récompences
         ImageView ImageViewItem2 = findViewById(R.id.Item2);
         ImageViewItem2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +235,7 @@ public class Game extends AppCompatActivity {
             }
         });
 
+        //boutton de selection du troisième item lors des récompences
         ImageView ImageViewItem3 = findViewById(R.id.Item3);
         ImageViewItem3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,38 +280,63 @@ public class Game extends AppCompatActivity {
         });
     }
 
+    //loop de combat
     Runnable Combat = new Runnable() {
-
-
-
+        //gere c'est le tour du monstre ou du joueur d'attaquer
         int montour = 1;
+
         @Override
         public void run() {
+            //cache le hitmarqueur si il est affiché
             hideHit();
 
+            //génère deux variables aléatoire pour savoir si notre % de crit ou de dodge est assez grand pour appliquer son effet
             int dodge = rand.nextInt(101);
             int crit = rand.nextInt(101);
+
+            //Attaque
             switch(montour)
             {
+                //le joueur attaque
                 case 1:
+                    //le hitmarqueur
                     TextView dammageText = findViewById(R.id.monstrehit);
+
+                    //dodge hit?
                     if(dodge>=monstre.dodgechance) {
+                        //crit hit?
                         if(crit>=perso.getCritChance()){
+                            //envoie des dommage au monstre qui varrie entre les dommage min et les dommage max
+                            //la couleur est set a rouge (couleur de dégat normal)
                             dammageText.setTextColor(Color.parseColor("#FF0000"));
                             GiveDammage(rand.nextInt((perso.getDammage_max() - perso.getDammage_min()) + 1) + perso.getDammage_min());
                         } else{
+                            //envoie des dommage au monstre qui varrie entre les dommage min et les dommage max FOIS 2
+                            //la couleur est set a jaune (couleur de dégat critique)
                             dammageText.setTextColor(Color.parseColor("#FFFF00"));
                             GiveDammage(2*(rand.nextInt((perso.getDammage_max() - perso.getDammage_min()) + 1) + perso.getDammage_min()));
                         }
                     }
+                    //le monstre dodge
                     else{
-                        dammageText.setTextColor(Color.parseColor("#FF0000"));
+                        //couleur de texte bleu pour le dodge
+                        dammageText.setTextColor(Color.parseColor("#0000FF"));
+                        //affiche dodge
                         GiveDodge();
                     }
                     break;
+                //le monstre attaque
                 case 0:
+                    //hitmarqueur
                     TextView dammagepersoText = findViewById(R.id.persohit);
-                    if(dodge>=perso.getDodgeChance()) {
+                    //fonction temporaire pré balancement qui fait en sorte que si le perso et le monstre ont trop d'armure vs les dégats ils ne se frappent pas en boucle sans ce prendre de dégats
+                    //si le joueur ce prend 30 coup le monstre le tue
+                    if(nbCoup>30)
+                    {
+                        TakeDammage(10000);
+                    }
+                    //même logique que pour les attaques du joeuur
+                    else if(dodge>=perso.getDodgeChance()) {
                         if(crit>=monstre.critchance){
                             dammagepersoText.setTextColor(Color.parseColor("#FF0000"));
                             TakeDammage(rand.nextInt((monstre.dammage_max - monstre.dammage_min) + 1) + monstre.dammage_min);
@@ -302,17 +352,20 @@ public class Game extends AppCompatActivity {
                     break;
             }
 
+            //met a jours les pv
             UpdatePv();
 
+            //rend le tour à l'autre
             if(montour == 1)
                 montour = 0;
             else
                 montour = 1;
 
-
+            //variable permet de savoir si le monstre est mort
             if(!combatIsOver)
             {
-                if(vitesse=="normal"){
+                //rappel la fonction avec un délai dépendant de la vitesse de jeu
+                if(vitesse.equals("normal")){
                     handler.postDelayed(Combat, 1200);
                 }else{
                     handler.postDelayed(Combat, 600);
@@ -320,13 +373,16 @@ public class Game extends AppCompatActivity {
             }
             else
             {
+                //fait les mécanique de fin de ronde : ex les récompences
                 endround();
             }
         }
     };
 
+    //set les parametres de début de rondes
     void StartRound()
     {
+        //genere un nouveau monstre et fait la gestion de quels sont les boutons qui devrait etre visible
         GenerateMonster();
         View buttonStart = findViewById(R.id.ButtonStart);
         View OptionsBoissons = findViewById(R.id.OptionsBoissons);
@@ -334,84 +390,121 @@ public class Game extends AppCompatActivity {
         buttonStart.setVisibility(View.VISIBLE);
     }
 
+    //recevoir des dommage
     void TakeDammage(int ammount)
     {
+        //hitmarqueur
         TextView view = findViewById(R.id.persohit);
+
+        //reduit les dégats avec l'armure
         ammount -= perso.getArmor();
+
+        //ne pas oublier de ne pas "heal" le perso si l'armure est plus élevé que les dommage
         if (ammount<0)
         {
             ammount = 0;
         }
+
+        //affichage
         view.setText("-" + ammount);
         view.setVisibility(View.VISIBLE);
 
+        //ajuster les pv
         perso.pv_actuel -= ammount;
 
+        //si le perso meur appeller la fonciton de fin de partie
         if (perso.pv_actuel <=0)
         {
             combatIsOver = true;
             GAMEOVER();
         }
 
+        //mettre a jours l'affichage
         UpdatePv();
+
+        //temp
+        nbCoup++;
     }
 
-    void TakeDodge(){
+    //dodge l'attaque et fait l'affichage
+    void TakeDodge()
+    {
         TextView view = findViewById(R.id.persohit);
-        view.setText("DODGE");
+        view.setText(R.string.dodge_combat);
         view.setVisibility(View.VISIBLE);
+        nbCoup++;
     }
 
+    //envoyer des dommage au monstre
     void GiveDammage(int ammount)
     {
+        //hitmarqueur
         TextView view = findViewById(R.id.monstrehit);
+
+        //redire les dégats avec l'Armure
         ammount -= monstre.armor;
 
+        //ne pas heal si armure > que dammage
         if (ammount<0)
         {
             ammount = 0;
         }
 
+        //affichage
         view.setText("-" + ammount);
         view.setVisibility(View.VISIBLE);
 
+        //retirer les pv
         monstre.pv_actuel -= ammount;
 
+        //regarde si le monstre est mort
         if (monstre.pv_actuel <=0)
         {
             combatIsOver = true;
             hideHit();
         }
 
+        //update affichage
         UpdatePv();
     }
 
-    void GiveDodge(){
+    //si le monstre dodge faire l'affichage
+    void GiveDodge()
+    {
         TextView view = findViewById(R.id.monstrehit);
-        view.setText("DODGE");
+        view.setText(R.string.dodge_combat);
         view.setVisibility(View.VISIBLE);
     }
 
+    //fin de rounde gestion des récompences
     void endround()
     {
+        //temp
+        nbCoup=0;
+
+        //ajoute 1 au nombre de ronde gagné
         round ++;
+
+        //retirer le monstre
         ImageView ImageMonstre = findViewById(R.id.ImageMonstre);
         ImageMonstre.setImageResource(R.drawable.vide);
 
-
+        //génère un item avec la table de chance
         int id1 = GetItemId();
         int id2 = GetItemId();
         int id3 = GetItemId();
 
-
+        //trouve l'item avec son id généré plus haut
         Item item1 = listeItems.get(id1);
         Item item2 = listeItems.get(id2);
         Item item3 = listeItems.get(id3);
 
+        //met a jour la liste d'itemselection
         ItemSelection[0] = item1;
         ItemSelection[1] = item2;
         ItemSelection[2] = item3;
 
+        //affichage
         ImageView item1Image = findViewById(R.id.Item1);
         ImageView item2Image = findViewById(R.id.Item2);
         ImageView item3Image = findViewById(R.id.Item3);
@@ -428,12 +521,14 @@ public class Game extends AppCompatActivity {
         item2Text.setText(GetItemTextStat(item2));
         item3Text.setText(GetItemTextStat(item3));
 
+        //activer les boutons
         View recompences = findViewById(R.id.ChoixRecompenses);
         recompences.setVisibility(View.VISIBLE);
     }
 
     void buttonClickedRecompense()
     {
+        //met a jour le visuel, update les stats avec le novel item et recommence une nouvelle rounde
         View v = findViewById(R.id.ChoixRecompenses);
         View v2 = findViewById(R.id.ButtonStart);
         View v3 = findViewById(R.id.OptionsBoissons);
@@ -444,29 +539,32 @@ public class Game extends AppCompatActivity {
         StartRound();
     }
 
+    //générer un monstre aléatoirement
     void GenerateMonster()
     {
         //genere un id selon la round
-        int i = rand.nextInt(10)-5+round;
+        int i = rand.nextInt(round+4);
 
-        if (i<0)
-        {
-            i=0;
-        }
+        //renvoie le dernier si on est endehors du nombre max
         if (i > listeMonstre.size())
         {
             i = listeMonstre.size();
         }
 
+        //met le monstre choisi dans la variable
         monstre = listeMonstre.get(i);
         monstre.pv_actuel = monstre.pv_max;
+
+        //visuel
         ImageView v = findViewById(R.id.ImageMonstre);
         v.setImageResource(ConversionStringEnDrawableImage(monstre.image));
         UpdatePv();
     }
 
+    //début de partie set les variables
     void StartGame()
     {
+        //vas chercher la liste des monstres dans l'api
         Thread t = new Thread(() -> {
             List<Monster> m = API_model.GetAllMonstre();
             synchronized (listeMonstre){
@@ -481,9 +579,7 @@ public class Game extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
-
+        //vas chercher la liste des items dans l'api
         Thread t2 = new Thread(() -> {
             List<Item> i = API_model.GetAllItems();
             synchronized (listeItems){
@@ -498,23 +594,27 @@ public class Game extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+        // creer un perso vide + les upgrades acheté hors partie
         perso = new Perso(user.upgradebought[0], user.upgradebought[1]+1, user.upgradebought[2], user.upgradebought[3] + 20, user.upgradebought[4], user.upgradebought[5], null, null, null, null, null);
+
+        //visuel
         UpdateStats();
+
+        //commencer la rounde
         StartRound();
     }
 
+    //le joueur est mort
     void GAMEOVER()
     {
+        //envoie à l'activité recompence
         Intent intent = new Intent(Game.this, RecomenceActivity.class);
         intent.putExtra("USER", user);
         intent.putExtra("ROUND", round);
         startActivity(intent);
-
-        //give recompense
-        //load en bd
     }
 
+    //fait la gestion des affichages des bouttons
     void HideButtonBoissons()
     {
         View buttons = findViewById(R.id.OptionsBoissons);
@@ -522,6 +622,7 @@ public class Game extends AppCompatActivity {
 
     }
 
+    //refresh l'affichage en fonction des stats du joueur
     void UpdateStats()
     {
         if (perso.pv_actuel>perso.getPv())
@@ -532,26 +633,27 @@ public class Game extends AppCompatActivity {
         int dmgmin = perso.getDammage_min();
         int dmgmax = perso.getDammage_max();
         TextView text_dammage_stats = findViewById(R.id.text_dammage_stats);
-        text_dammage_stats.setText("Dammage : " + dmgmin + "-" + dmgmax);
+        text_dammage_stats.setText(getString(R.string.Dommage) + " : " + dmgmin + "-" + dmgmax);
 
         int pvmax = perso.getPv();
         TextView text_pv_stats = findViewById(R.id.text_pv_stats);
-        text_pv_stats.setText("Points de vie : " + perso.pv_actuel + "/" + pvmax);
+        text_pv_stats.setText(getString(R.string.Pv) + " : " + perso.pv_actuel + "/" + pvmax);
 
         int armor = perso.getArmor();
         TextView text_armor_stats = findViewById(R.id.text_armor_stats);
-        text_armor_stats.setText("Armure : " + armor);
+        text_armor_stats.setText(getString(R.string.Armure) +" : " + armor);
 
         int critChance = perso.getCritChance();
         TextView text_crit_stats = findViewById(R.id.text_crit_stats);
-        text_crit_stats.setText("Chance de coup critique : " + critChance + "%");
+        text_crit_stats.setText( getString(R.string.Crit) + " : " + critChance + "%");
 
         int dodgeChance = perso.getDodgeChance();
         TextView text_dodge_stats = findViewById(R.id.text_dodge_stats);
-        text_dodge_stats.setText("Chance d'esquive: " + dodgeChance + "%");
+        text_dodge_stats.setText( getString(R.string.Dodge) + " : " + dodgeChance + "%");
 
     }
 
+    //met a jour les points de vie
     void UpdatePv()
     {
         int pvmax = perso.getPv();
@@ -559,10 +661,11 @@ public class Game extends AppCompatActivity {
         TextView text_pv_stats = findViewById(R.id.text_pv_stats);
         TextView text_pv_stats_monstre = findViewById(R.id.monstrePv);
 
-        text_pv_stats.setText("Points de vie : " + perso.pv_actuel + "/" + pvmax);
+        text_pv_stats.setText(getString(R.string.Pv) + " : " + perso.pv_actuel + "/" + pvmax);
         text_pv_stats_monstre.setText(monstre.pv_actuel + "/" + monsterPvMax);
     }
 
+    //cache les hitmarqueur
     void hideHit()
     {
         TextView monshit = findViewById(R.id.monstrehit);
@@ -571,6 +674,7 @@ public class Game extends AppCompatActivity {
         pershit.setVisibility(View.GONE);
     }
 
+    //convertie un string en id pour le dossier drawable
     int ConversionStringEnDrawableImage(String image)
     {
         switch(image) {
@@ -754,18 +858,20 @@ public class Game extends AppCompatActivity {
         }
     }
 
+    //retourne une longe chaine de texte pour les statistique d'un item
     String GetItemTextStat(Item item)
     {
-        return "dmg : " + item.dammage_min + "-" + item.dammage_max + "\n" + "armor : " + item.armor + "\n" + "pv : " + item.pv + "\n" + "crit : " + item.critChance+ "\n" + "dodge : " + item.dodgeChance;
+        return "dmg : " + item.dammage_min + "-" + item.dammage_max + "\n" + "arm : " + item.armor + "\n" + "pv : " +item.pv + "\n" + "crit : " + item.critChance+ "\n" + "ddg : " + item.dodgeChance;
     }
 
+    //fonction qui genere un item selon la table de chance
     public static int GetItemId() {
         Random rand = new Random();
 
-        // Générer un nombre aléatoire entre 0 et 1
+        //générer un nombre aléatoire entre 0 et 1
         double randomValue = rand.nextDouble();
 
-        // Calculer lequel des objets doit être choisi en fonction de la probabilité
+        //calculer lequel des objets doit être choisi en fonction de la probabilité
         double cumulativeProbability = 0.0;
         for (int i = 0; i < probabilities.length; i++) {
             cumulativeProbability += probabilities[i];
@@ -773,7 +879,8 @@ public class Game extends AppCompatActivity {
                 return rand.nextInt(5)+i*5+1;
             }
         }
-        return rand.nextInt(5)+1; // Retourne le dernier objet si quelque chose ne va pas
+        //retourne le dernier objet si quelque chose ne va pas
+        return rand.nextInt(5)+1;
     }
 
 }

@@ -19,6 +19,8 @@ public class Monstre_Bestiaire extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.bestiaire);
+
+        //vas chercher la liste des monstres
         Thread t = new Thread(() -> {
             List<Monster> m = API_model.GetAllMonstre();
             synchronized (les_Monstres){
@@ -34,7 +36,7 @@ public class Monstre_Bestiaire extends AppCompatActivity {
         }
 
 
-        Log.d("Monstre",les_Monstres.toString());
+        //variables
         RecyclerView recyclerView = findViewById(R.id.monster_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -55,12 +57,12 @@ public class Monstre_Bestiaire extends AppCompatActivity {
             // Action lorsqu'un monstre est cliqué
             // Exemple : changer l'image et afficher des stats fictives
             monsterImage.setImageResource(getResources().getIdentifier(monster.image, "drawable", getPackageName())); // Remplacez par une image réelle
-            damageMin.setText("Dammage Min:" + monster.dammage_min);
-            damageMax.setText("Dammage Max: " + monster.dammage_max);
-            armor.setText("Armor: " + monster.armor);
-            pvMax.setText("PV Max: " + monster.pv_max);
-            dodgeChance.setText("Dodge Chance: " + monster.dodgechance + " %");
-            critChance.setText("Crit Chance: " + monster.critchance +" %");
+            damageMin.setText(getString(R.string.Dommage_min) + " : " + monster.dammage_min);
+            damageMax.setText(getString(R.string.Dommage_max) + " : " + monster.dammage_max);
+            armor.setText(getString(R.string.Armure) + " : " + monster.armor);
+            pvMax.setText(getString(R.string.Pv) + " : " + monster.pv_max);
+            dodgeChance.setText(getString(R.string.Dodge) + " : " + monster.dodgechance + " %");
+            critChance.setText(getString(R.string.Crit) + " : " + monster.critchance +" %");
         });
         recyclerView.setAdapter(adapter);
     }

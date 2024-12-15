@@ -6,6 +6,7 @@
 
     <!-- Affichage de l'argent du joueur en haut à droite -->
     <RelativeLayout
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -34,17 +35,48 @@
             android:padding="16dp">
 
             <Button
+                android:height="60dp"
                 android:id="@+id/btn_upgrade_1"
                 android:text="50 $"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
             <Button
+                android:height="60dp"
                 android:id="@+id/btn_upgrade_2"
                 android:text="75 $"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
+            <Button
+                android:height="60dp"
+                android:id="@+id/btn_upgrade_3"
+                android:text="75 $"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+            <Button
+                android:height="60dp"
+                android:id="@+id/btn_upgrade_4"
+                android:text="75 $"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+            <Button
+                android:height="60dp"
+                android:id="@+id/btn_upgrade_5"
+                android:text="75 $"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+            <Button
+                android:height="60dp"
+                android:id="@+id/btn_upgrade_6"
+                android:text="75 $"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
         </LinearLayout>
 
         <!-- Section droite : Descriptions des améliorations -->
@@ -54,23 +86,66 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:padding="16dp"
-            android:scrollbars="vertical">
+            android:scrollbars="vertical"
+           >
 
             <TextView
+                android:height="60dp"
                 android:id="@+id/description_upgrade_1"
                 android:text="Description de l'amélioration 1..."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:height="60dp"
                 android:id="@+id/description_upgrade_2"
                 android:text="Description de l'amélioration 2..."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:height="60dp"
+                android:id="@+id/description_upgrade_3"
+                android:text="Description de l'amélioration 2..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:height="60dp"
+                android:id="@+id/description_upgrade_4"
+                android:text="Description de l'amélioration 2..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:height="60dp"
+                android:id="@+id/description_upgrade_5"
+                android:text="Description de l'amélioration 2..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:height="60dp"
+                android:id="@+id/description_upgrade_6"
+                android:text="Description de l'amélioration 2..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"/>
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/retourMenu2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/retour"/>
+
 </LinearLayout>
 
 

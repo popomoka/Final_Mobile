@@ -47,18 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         buttonBestiaire.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Thread t = new Thread(() -> {
-                    user.cash = 142;
-                    ApiCall_Perso.PutPerso(user);
-                });
-                t.start();
-                try {
-                    t.join(); // Attendre que le thread termine son exécution
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 Intent intent = new Intent(HomeActivity.this, Monstre_Bestiaire.class);
-
                 startActivity(intent);
             }
         });
@@ -69,6 +58,17 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button Boutique = (Button)findViewById(R.id.voirUpgradeButton);
+        Boutique.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(HomeActivity.this, BoutiqueActivity.class);
+                intent.putExtra("USER", user);
                 startActivity(intent);
             }
         });

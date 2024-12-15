@@ -42,6 +42,15 @@ public class RecomenceActivity extends AppCompatActivity {
 
     void EnvoyerEnBd()
     {
-        
+        Thread t = new Thread(() -> {
+            user.cash+= Math.round(rounds*0.8);
+            ApiCall_Perso.PutPerso(user);
+        });
+        t.start();
+        try {
+            t.join(); // Attendre que le thread termine son exécution
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

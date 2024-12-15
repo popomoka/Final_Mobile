@@ -8,8 +8,27 @@
     <string name="deconnexion">Déconnexion</string>
     <string name="amelioration">Amélioration</string>
     <string name="jouer_une_partie">Jouer une partie</string>
-    <string name="nom_du_jeu">Nom du jeu</string>
+    <string name="nom_du_jeu">Drunk Hero</string>
     <string name="start">Commencer</string>
     <string name="Bestiaire">Bestiaire</string>
+    <string name="Argent">Argent</string>
+    <string name="Dommage_min">Dommage minimum</string>
+    <string name="Dommage_max">Dommage maximum</string>
+    <string name="Armure">Armure</string>
+    <string name="Pv">Pv</string>
+    <string name="Dodge">Chance d\'esquive</string>
+    <string name="Crit">Chance de critique</string>
+    <string name="vitesse_normal">Vitesse : normal</string>
+    <string name="vitesse_rapide">Vitesse : rapide</string>
+    <string name="dodge_combat">Esquive</string>
+    <string name="Dommage">Dommage</string>
+    <string name="retour">Retour</string>
+    <string name="Quit">Quitter</string>
+
+
+
+
+
+
 
 </resources>

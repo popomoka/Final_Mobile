@@ -54,7 +54,7 @@
                     android:id="@+id/Quitter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quitter"/>
+                    android:text="@string/Quit"/>
                 <Button
                     android:id="@+id/vitesse"
                     android:layout_width="wrap_content"
@@ -185,6 +185,7 @@
                     <TextView
                         android:id="@+id/casqueText"
                         android:layout_width="100dp"
+                        android:textSize="11dp"
                         android:layout_height="80dp"
                         android:paddingTop="10dp"
                         android:text=""
@@ -194,13 +195,14 @@
                         android:layout_width="100dp"
                         android:layout_height="80dp"
                         android:paddingTop="10dp"
-                        android:textSize="12dp"
+                        android:textSize="11dp"
                         android:text=""
                         android:textColor="@color/white"/>
                     <TextView
                         android:id="@+id/armeText"
                         android:layout_width="100dp"
                         android:layout_height="80dp"
+                        android:textSize="11dp"
                         android:paddingTop="10dp"
                         android:text=""
                         android:textColor="@color/white"/>
@@ -246,6 +248,7 @@
                     <TextView
                         android:id="@+id/plastronText"
                         android:layout_width="100dp"
+                        android:textSize="11dp"
                         android:layout_height="80dp"
                         android:paddingTop="10dp"
                         android:text=""
@@ -253,6 +256,7 @@
                     <TextView
                         android:id="@+id/bottesText"
                         android:layout_width="100dp"
+                        android:textSize="11dp"
                         android:layout_height="80dp"
                         android:paddingTop="10dp"
                         android:text=""

@@ -24,6 +24,7 @@
         <activity android:name=".Game" />
         <activity android:name=".Monstre_Bestiaire" />
         <activity android:name=".RecomenceActivity" />
+        <activity android:name=".BoutiqueActivity" />
     </application>
 
 </manifest>
