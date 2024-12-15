@@ -41,14 +41,18 @@ public class BoutiqueActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Thread t = new Thread(() -> {
-                    user.cash -= GetPrixUpgrade(1,user.upgradebought[0]);
-                    user.upgradebought[0]+=1;
-                    ApiCall_Perso.PutPerso(user);
-                    runOnUiThread(() -> {
-                        // Exemple de rafraîchissement de l'UI
-                        setButtonText();
-                        cash.setText(getString(R.string.Argent) +" : "+ user.cash + "$");
-                    });
+                    if(user.cash >=GetPrixUpgrade(1,user.upgradebought[0]))
+                    {
+                        user.cash -= GetPrixUpgrade(1,user.upgradebought[0]);
+                        user.upgradebought[0]+=1;
+                        ApiCall_Perso.PutPerso(user);
+                        runOnUiThread(() -> {
+                            // Exemple de rafraîchissement de l'UI
+                            setButtonText();
+                            cash.setText(getString(R.string.Argent) +" : "+ user.cash + "$");
+                        });
+                    }
+
                 });
                 t.start();
                 try {
@@ -65,14 +69,16 @@ public class BoutiqueActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Thread t = new Thread(() -> {
-                    user.cash -= GetPrixUpgrade(2,user.upgradebought[1]);
-                    user.upgradebought[1]+=1;
-                    ApiCall_Perso.PutPerso(user);
-                    runOnUiThread(() -> {
-                        // Exemple de rafraîchissement de l'UI
-                        setButtonText();
-                        cash.setText(getString(R.string.Argent) +" : "+ user.cash + "$");
-                    });
+                    if(user.cash >=GetPrixUpgrade(2,user.upgradebought[1])) {
+                        user.cash -= GetPrixUpgrade(2, user.upgradebought[1]);
+                        user.upgradebought[1] += 1;
+                        ApiCall_Perso.PutPerso(user);
+                        runOnUiThread(() -> {
+                            // Exemple de rafraîchissement de l'UI
+                            setButtonText();
+                            cash.setText(getString(R.string.Argent) + " : " + user.cash + "$");
+                        });
+                    }
                 });
                 t.start();
                 try {
@@ -89,14 +95,16 @@ public class BoutiqueActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Thread t = new Thread(() -> {
-                    user.cash -= GetPrixUpgrade(3,user.upgradebought[2]);
-                    user.upgradebought[2]+=1;
-                    ApiCall_Perso.PutPerso(user);
-                    runOnUiThread(() -> {
-                        // Exemple de rafraîchissement de l'UI
-                        setButtonText();
-                        cash.setText(getString(R.string.Argent) + " : " + user.cash + "$");
-                    });
+                    if(user.cash >=GetPrixUpgrade(3,user.upgradebought[2])) {
+                        user.cash -= GetPrixUpgrade(3, user.upgradebought[2]);
+                        user.upgradebought[2] += 1;
+                        ApiCall_Perso.PutPerso(user);
+                        runOnUiThread(() -> {
+                            // Exemple de rafraîchissement de l'UI
+                            setButtonText();
+                            cash.setText(getString(R.string.Argent) + " : " + user.cash + "$");
+                        });
+                    }
                 });
                 t.start();
                 try {
@@ -113,14 +121,16 @@ public class BoutiqueActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Thread t = new Thread(() -> {
-                    user.cash -= GetPrixUpgrade(4,user.upgradebought[3]);
-                    user.upgradebought[3]+=1;
-                    ApiCall_Perso.PutPerso(user);
-                    runOnUiThread(() -> {
-                        // Exemple de rafraîchissement de l'UI
-                        setButtonText();
-                        cash.setText(getString(R.string.Argent) +" : "+ user.cash + "$");
-                    });
+                    if(user.cash >=GetPrixUpgrade(4,user.upgradebought[3])) {
+                        user.cash -= GetPrixUpgrade(4, user.upgradebought[3]);
+                        user.upgradebought[3] += 1;
+                        ApiCall_Perso.PutPerso(user);
+                        runOnUiThread(() -> {
+                            // Exemple de rafraîchissement de l'UI
+                            setButtonText();
+                            cash.setText(getString(R.string.Argent) + " : " + user.cash + "$");
+                        });
+                    }
                 });
                 t.start();
                 try {
@@ -137,14 +147,16 @@ public class BoutiqueActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Thread t = new Thread(() -> {
-                    user.cash -= GetPrixUpgrade(5,user.upgradebought[4]);
-                    user.upgradebought[4]+=1;
-                    ApiCall_Perso.PutPerso(user);
-                    runOnUiThread(() -> {
-                        // Exemple de rafraîchissement de l'UI
-                        setButtonText();
-                        cash.setText(getString(R.string.Argent) +" : "+ user.cash + "$");
-                    });
+                    if(user.cash >=GetPrixUpgrade(5,user.upgradebought[4])) {
+                        user.cash -= GetPrixUpgrade(5, user.upgradebought[4]);
+                        user.upgradebought[4] += 1;
+                        ApiCall_Perso.PutPerso(user);
+                        runOnUiThread(() -> {
+                            // Exemple de rafraîchissement de l'UI
+                            setButtonText();
+                            cash.setText(getString(R.string.Argent) + " : " + user.cash + "$");
+                        });
+                    }
                 });
                 t.start();
                 try {
@@ -161,14 +173,16 @@ public class BoutiqueActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Thread t = new Thread(() -> {
-                    user.cash -= GetPrixUpgrade(6,user.upgradebought[5]);
-                    user.upgradebought[5]+=1;
-                    ApiCall_Perso.PutPerso(user);
-                    runOnUiThread(() -> {
-                        // Exemple de rafraîchissement de l'UI
-                        setButtonText();
-                        cash.setText(getString (R.string.Argent) +" : "+ user.cash + "$");
-                    });
+                    if(user.cash >=GetPrixUpgrade(6,user.upgradebought[5])) {
+                        user.cash -= GetPrixUpgrade(6, user.upgradebought[5]);
+                        user.upgradebought[5] += 1;
+                        ApiCall_Perso.PutPerso(user);
+                        runOnUiThread(() -> {
+                            // Exemple de rafraîchissement de l'UI
+                            setButtonText();
+                            cash.setText(getString(R.string.Argent) + " : " + user.cash + "$");
+                        });
+                    }
                 });
                 t.start();
                 try {
